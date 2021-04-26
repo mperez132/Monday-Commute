@@ -6,22 +6,15 @@ let config = {
     scale: {
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
-    physics: {
-        default: 'aracde', 
-        arcade: {
-            //debug: true,
-            gravity: {
-                x: 0, 
-                y: 0
-            }
-        }
-    },
-    scene: [Play],
+    scene: [Play, Menu],
 }
 
 let game = new Phaser.Game(config);
-let cursors;
-let Level;
+
 let HighScore = 0;
 let Distance = 0;
 let GameStatus = false; 
+
+let groundSpeed = 3;
+
+let keyLEFT, keyRIGHT, keyR;
