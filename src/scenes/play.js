@@ -13,8 +13,13 @@ class Play extends Phaser.Scene {
     }
 
     update() {
-        this.backTemp.tilePositionY -= menuSpeed;
+        if(GameDiff == false)
+            this.backTemp.tilePositionY -= menuSpeed;
+        else
+        this.backTemp.tilePositionY -= gameSpeed;
+
         
+
     }
 
     playerExplode() {

@@ -23,24 +23,26 @@ class Menu extends Phaser.Scene {
         this.backTemp.tilePositionY -= menuSpeed;
         //easy mode
         if(Phaser.Input.Keyboard.JustDown(keyUP)) {
-            game.settings = {
-                gameSpeed: 3,
-                GameDiff: false
-            }
+            // game.settings = {
+            //     gameSpeed: 2,
+            //     GameDiff: false
+            // }
             //maybe add a function here
             //that fades the images for 2 seconds and transitions 
             //to the play scene
+            GameDiff = false;
             this.scene.start('playScene');
         }
         //hard mode
         if(Phaser.Input.Keyboard.JustDown(keyDOWN)) {
-            game.settings = {
-                gameSpeed: 4,
-                GameDiff: true
-            }
+            // game.settings = {
+            //     gameSpeed: 5,
+            //     GameDiff: true
+            // }
             //maybe add a function here
             //that fades the images for 2 seconds and transitions 
             //to the play scene
+            GameDiff = true; 
             this.scene.start('playScene');
         }
     }

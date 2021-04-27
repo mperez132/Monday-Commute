@@ -16,7 +16,7 @@ let Distance = 0;
 let GameDiff = false; 
 let GameStatus = false; 
 
-let gameSpeed = 3;
-let menuSpeed = 1.5;
+let gameSpeed = 4;
+let menuSpeed = 2;
 
 let keyLEFT, keyRIGHT, keyR, keyUP, keyDOWN;
