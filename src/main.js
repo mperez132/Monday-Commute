@@ -6,15 +6,17 @@ let config = {
     scale: {
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
-    scene: [Menu],
+    scene: [Menu, Play],
 }
 
 let game = new Phaser.Game(config);
 
 let HighScore = 0;
 let Distance = 0;
+let GameDiff = false; 
 let GameStatus = false; 
 
-let groundSpeed = 3;
+let gameSpeed = 3;
+let menuSpeed = 1.5;
 
-let keyLEFT, keyRIGHT, keyR;
+let keyLEFT, keyRIGHT, keyR, keyUP, keyDOWN;
