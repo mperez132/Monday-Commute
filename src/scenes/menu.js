@@ -27,6 +27,9 @@ class Menu extends Phaser.Scene {
                 gameSpeed: 3,
                 GameDiff: false
             }
+            //maybe add a function here
+            //that fades the images for 2 seconds and transitions 
+            //to the play scene
             this.scene.start('playScene');
         }
         //hard mode
@@ -35,6 +38,9 @@ class Menu extends Phaser.Scene {
                 gameSpeed: 4,
                 GameDiff: true
             }
+            //maybe add a function here
+            //that fades the images for 2 seconds and transitions 
+            //to the play scene
             this.scene.start('playScene');
         }
     }
