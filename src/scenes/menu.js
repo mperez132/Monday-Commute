@@ -5,14 +5,32 @@ class Menu extends Phaser.Scene {
 
     preload() {
         this.load.image('backTemp', './assets/backTemp.png');
-        this.load.image('menuTemp', './assets/coollogo_com-32133531.png')
+        this.load.image('menuTemp', './assets/TitleSplash.png')
     }
 
     create() {
+
+        let menuConfig = {
+            fontFamily: 'Courier',
+            fontSize: '24.5px',
+            backgroundColor: '#000000',
+            color: '#F1D200',
+            align: 'center',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 0
+        }
+
         this.backTemp = this.add.tileSprite(0,0, game.config.width, game.config.height,
             'backTemp').setOrigin(0,0);
         this.menuTemp = this.add.tileSprite(0,0, game.config.width, game.config.height,
-            'menuTemp').setOrigin(0,0);
+            'menuTemp').setOrigin(-0.006,0);
+
+        this.add.text(game.config.width/2, game.config.height/2 + borderUISize +
+            borderPadding, 'Press Up If You Woke Up On Time\nPress Down If You Had To Sleep In', menuConfig).setOrigin(0.5);
+            
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);

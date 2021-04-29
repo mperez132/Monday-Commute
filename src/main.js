@@ -11,12 +11,15 @@ let config = {
 
 let game = new Phaser.Game(config);
 
+let borderUISize = game.config.height / 15;
+let borderPadding = borderUISize / 3;
+
 let HighScore = 0;
 let Distance = 0;
 let GameDiff = false; 
 let GameStatus = false; 
 
-let gameSpeed = 4;
-let menuSpeed = 2;
+let gameSpeed = 2.55;
+let menuSpeed = 1.75;
 
 let keyLEFT, keyRIGHT, keyR, keyUP, keyDOWN;
