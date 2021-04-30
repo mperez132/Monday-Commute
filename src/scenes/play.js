@@ -11,10 +11,16 @@ class Play extends Phaser.Scene {
         //road placed
         this.backTemp = this.add.tileSprite(0,0, game.config.width, game.config.height,
             'backTemp').setOrigin(0,0);
-        
-        //the player -- a difficulty flag will eventually set which model is used
-        this.commuter = new Linda(this, game.config.width/2, game.config.height - 
-            borderUISize - borderPadding, 'car').setOrigin(0.5, 0.85);
+        if(GameDiff == false) {
+            //the player -- a difficulty flag will eventually set which model is used
+            this.commuter = new Linda(this, game.config.width/2, game.config.height - 
+                borderUISize - borderPadding, 'car1').setOrigin(0.5, 0.85);
+        }
+        else {
+            //the player -- a difficulty flag will eventually set which model is used
+            this.commuter = new Linda(this, game.config.width/2, game.config.height - 
+            borderUISize - borderPadding, 'car2').setOrigin(0.5, 0.85);
+        }
 
         //controls
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
@@ -41,6 +47,10 @@ class Play extends Phaser.Scene {
         this.backTemp.tilePositionY -= gameSpeed;
 
         this.commuter.update();
+
+        if(Phaser.Input.Keyboard.JustDown(keyR)) {
+            this.scene.start('menuScene');
+        }
 
     }
 

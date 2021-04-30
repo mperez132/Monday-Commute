@@ -7,7 +7,8 @@ class Menu extends Phaser.Scene {
         this.load.image('backTemp', './assets/backTemp.png');
         this.load.image('menuTemp', './assets/TitleSplash.png');
         this.load.image('menuText', './assets/TitleDifficulty.png');
-        this.load.image('car', './assets/car.png');
+        this.load.image('car1', './assets/car.png');
+        this.load.image('car2', './assets/carHard.png');
     }
 
     create() {
@@ -20,7 +21,7 @@ class Menu extends Phaser.Scene {
             'menuText').setOrigin(0,0);
         //the player -- a difficulty flag will eventually set which model is used
         this.commuter = new Linda(this, game.config.width/2, game.config.height - 
-            borderUISize - borderPadding, 'car').setOrigin(0.5, 0.85);
+            borderUISize - borderPadding, 'car1').setOrigin(0.5, 0.85);
 
             
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
