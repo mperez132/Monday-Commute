@@ -4,7 +4,7 @@ class Play extends Phaser.Scene {
     }
     //preload assets for the play scene
     preload() {
-        this.load.image('backTemp', './assets/backTemp.png');
+        this.load.image('backTemp', './assets/BackTemp.png');
     }
 
     create() {
@@ -26,6 +26,10 @@ class Play extends Phaser.Scene {
             borderUISize - borderPadding, 'car2').setOrigin(0.5, 0.85);
         }
 
+        Distance = 0;
+        if(this.timer) {
+            this.timer.timeScaler = 0;
+        }
         //controls
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);

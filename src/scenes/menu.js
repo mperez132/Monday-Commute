@@ -4,7 +4,7 @@ class Menu extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('backTemp', './assets/backTemp.png');
+        this.load.image('backTemp', './assets/BackTemp.png');
         this.load.image('menuTemp', './assets/TitleSplash.png');
         this.load.image('menuText', './assets/TitleDifficulty.png');
         this.load.image('car1', './assets/car.png');
