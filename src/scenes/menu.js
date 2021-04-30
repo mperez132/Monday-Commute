@@ -9,6 +9,7 @@ class Menu extends Phaser.Scene {
         this.load.image('menuText', './assets/TitleDifficulty.png');
         this.load.image('car1', './assets/car.png');
         this.load.image('car2', './assets/carHard.png');
+        this.load.image('controls', './assets/controlSplash.png');
     }
 
     create() {

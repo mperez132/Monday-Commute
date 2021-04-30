@@ -11,6 +11,10 @@ class Play extends Phaser.Scene {
         //road placed
         this.backTemp = this.add.tileSprite(0,0, game.config.width, game.config.height,
             'backTemp').setOrigin(0,0);
+
+        this.Controls = this.add.tileSprite(0,0, game.config.width, game.config.height,
+            'controls').setOrigin(0,0);
+
         if(GameDiff == false) {
             //the player -- a difficulty flag will eventually set which model is used
             this.commuter = new Linda(this, game.config.width/2, game.config.height - 
