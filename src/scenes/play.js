@@ -9,7 +9,7 @@ class Play extends Phaser.Scene {
 
     create() {
         //road placed
-        this.backTemp = this.add.tileSprite(0,0, game.config.width, game.config.height,
+        this.BackgroundRoad = this.add.tileSprite(0,0, game.config.width, game.config.height,
             'backTemp').setOrigin(0,0);
 
         this.Controls = this.add.tileSprite(0,0, game.config.width, game.config.height,
@@ -50,9 +50,9 @@ class Play extends Phaser.Scene {
 
     update() {
         if(GameDiff == false)
-            this.backTemp.tilePositionY -= menuSpeed;
+            this.BackgroundRoad.tilePositionY -= menuSpeed;
         else
-        this.backTemp.tilePositionY -= gameSpeed;
+        this.BackgroundRoad.tilePositionY -= gameSpeed;
 
         this.commuter.update();
 

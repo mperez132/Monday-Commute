@@ -14,7 +14,7 @@ class Menu extends Phaser.Scene {
 
     create() {
 
-        this.backTemp = this.add.tileSprite(0,0, game.config.width, game.config.height,
+        this.BackgroundRoad = this.add.tileSprite(0,0, game.config.width, game.config.height,
             'backTemp').setOrigin(0,0);
         this.menuTemp = this.add.tileSprite(0,0, game.config.width, game.config.height,
             'menuTemp').setOrigin(0,0);
@@ -32,7 +32,7 @@ class Menu extends Phaser.Scene {
     }
 
     update() {
-        this.backTemp.tilePositionY -= menuSpeed;
+        this.BackgroundRoad.tilePositionY -= menuSpeed;
         //easy mode
         if(Phaser.Input.Keyboard.JustDown(keyUP)) {
             GameDiff = false;
