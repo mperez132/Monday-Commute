@@ -12,7 +12,7 @@ let config = {
 let game = new Phaser.Game(config);
 
 let borderUISize = game.config.height / 30;
-let borderPadding = borderUISize + 90;
+let borderPadding = borderUISize + 70;
 
 let HighScore = 0;
 let Distance = 0;
