@@ -4,13 +4,13 @@ class Play extends Phaser.Scene {
     }
     //preload assets for the play scene
     preload() {
-        this.load.image('backTemp', './assets/BackTemp.png');
+        this.load.image('Background', './assets/BackTemp.png');
     }
 
     create() {
         //road placed
         this.BackgroundRoad = this.add.tileSprite(0,0, game.config.width, game.config.height,
-            'backTemp').setOrigin(0,0);
+            'Background').setOrigin(0,0);
 
         this.Controls = this.add.tileSprite(0,0, game.config.width, game.config.height,
             'controls').setOrigin(0,0);

@@ -4,7 +4,7 @@ class Menu extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('backTemp', './assets/BackTemp.png');
+        this.load.image('Background', './assets/BackTemp.png');
         this.load.image('menuTemp', './assets/TitleSplash.png');
         this.load.image('menuText', './assets/TitleDifficulty.png');
         this.load.image('car1', './assets/car.png');
@@ -15,7 +15,7 @@ class Menu extends Phaser.Scene {
     create() {
 
         this.BackgroundRoad = this.add.tileSprite(0,0, game.config.width, game.config.height,
-            'backTemp').setOrigin(0,0);
+            'Background').setOrigin(0,0);
         this.menuTemp = this.add.tileSprite(0,0, game.config.width, game.config.height,
             'menuTemp').setOrigin(0,0);
         this.menuText = this.add.tileSprite(0,0, game.config.width, game.config.height,
