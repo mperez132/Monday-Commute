@@ -5,7 +5,6 @@ class Play extends Phaser.Scene {
     //preload assets for the play scene
     preload() {
         this.load.image('backTemp', './assets/backTemp.png');
-        this.load.image('car', './assets/car.png');
     }
 
     create() {

@@ -4,7 +4,7 @@ class Linda extends Phaser.GameObjects.Sprite {
         super(scene, x, y, texture, frame);
         scene.add.existing(this);
        
-        this.movementSpeed = 3;
+        this.movementSpeed = 5;
     }
 
     update(){
@@ -14,6 +14,8 @@ class Linda extends Phaser.GameObjects.Sprite {
         else if(keyRIGHT.isDown && this.x <= game.config.width - borderUISize) {
                 this.x += this.movementSpeed;
         }
+        this.x = Phaser.Math.Clamp(this.x, borderUISize + borderPadding,
+            game.config.width - borderUISize - borderPadding);
     }
    
 }

@@ -1,9 +1,8 @@
 class Traffic extends Phaser.GameObjects.Sprite {
-    constructor(scene, x, y, texture, frame, pointValue) {
+    constructor(scene, x, y, texture, frame) {
         super(scene, x, y, texture, frame);
         scene.add.existing(this);
-        this.points = pointValue;
-        this.movementSpeed = 4;
+        this.movementSpeed = 2;
     }
     update() {
         this.x -= this.movementSpeed;
