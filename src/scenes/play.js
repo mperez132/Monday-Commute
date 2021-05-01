@@ -1,6 +1,8 @@
 class Play extends Phaser.Scene {
     constructor() {
         super("playScene");
+        this.Distance;
+        this.HighScore = 0;
     }
     //preload assets for the play scene
     preload() {
@@ -8,6 +10,7 @@ class Play extends Phaser.Scene {
     }
 
     create() {
+
         //road placed
         this.BackgroundRoad = this.add.tileSprite(0,0, game.config.width, game.config.height,
             'Background').setOrigin(0,0);
@@ -17,36 +20,73 @@ class Play extends Phaser.Scene {
 
         if(GameDiff == false) {
             //the player -- a difficulty flag will eventually set which model is used
-            this.commuter = new Linda(this, game.config.width/2, game.config.height - 
+            this.commuter01 = new Linda(this, game.config.width/2, game.config.height - 
                 borderUISize - borderPadding, 'car1').setOrigin(0.5, 0.85);
         }
         else {
             //the player -- a difficulty flag will eventually set which model is used
-            this.commuter = new Linda(this, game.config.width/2, game.config.height - 
+            this.commuter01 = new Linda(this, game.config.width/2, game.config.height - 
             borderUISize - borderPadding, 'car2').setOrigin(0.5, 0.85);
         }
 
-        Distance = 0;
-        if(this.timer) {
-            this.timer.timeScaler = 0;
+        this.timeConfig = {
+            fontFamily: 'Courier',
+            bold: true,
+            fontSize: '28px',
+            backgroundColor: '#FF0000',
+            color: '#FFFFFF',
+            align: 'center',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 100
         }
+
+        this.highScoreConfig = {
+            fontFamily: 'Courier',
+            bold: true,
+            fontSize: '28px',
+            backgroundColor: '#FF0000',
+            color: '#FFFFFF',
+            align: 'left',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 200
+        }
+
+        this.Distance = this.add.text (
+            game.config.width - 100,
+            0,
+            0,
+            this.timeConfig
+        );
+        
+        this.highScoreText = this.add.text (
+            0,
+            0,
+            "High Score: " + this.HighScore,
+            this.highScoreConfig
+        );
+
         //controls
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
-
-        //timer/score thing
-        this.survTime = 0;
-        //a timer display needs to go here, Brian accomplished working timer in his game, need input here
-        //
         
-        //loss flag
-        this.gameOver = false;
 
-                
+        
     }
+
+    createTraffic() {
+
+    }
+
+
 
     update() {
         if(GameDiff == false)
@@ -54,7 +94,9 @@ class Play extends Phaser.Scene {
         else
         this.BackgroundRoad.tilePositionY -= gameSpeed;
 
-        this.commuter.update();
+        if(!this.gameStatus) {
+            this.commuter01.update();
+        }
 
         if(Phaser.Input.Keyboard.JustDown(keyR)) {
             this.scene.start('menuScene');

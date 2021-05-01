@@ -22,11 +22,6 @@ class gameOver extends Phaser.Scene {
     update() {
         
         this.backTemp.tilePositionY -= menuSpeed;
-        if(Phaser.Input.Keyboard.JustDown(keyUP)) {
-            GameStatus = false;
-            this.scene.start('playScene');
-        }
-
         if(Phaser.Input.Keyboard.JustDown(keyDOWN)) {
             GameStatus = false;
             this.scene.start('menu');

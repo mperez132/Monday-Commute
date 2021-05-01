@@ -6,7 +6,7 @@ let config = {
     scale: {
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
-    scene: [Menu, Play],
+    scene: [Load, Menu, Play],
 }
 
 let game = new Phaser.Game(config);
@@ -14,8 +14,7 @@ let game = new Phaser.Game(config);
 let borderUISize = game.config.height / 30;
 let borderPadding = borderUISize + 70;
 
-let HighScore = 0;
-let Distance = 0;
+let newHighScore = false;
 let GameDiff = false; 
 let GameStatus = false; 
 
