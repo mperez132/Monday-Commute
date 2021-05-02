@@ -105,24 +105,16 @@ class Play extends Phaser.Scene {
         if(this.physics.collide(this.playerGroup, this.trafficGroup)) {
             this.gameStatus = true;
             this.scene.start('gameOverScene');
-            // if(timeScore > HighScore){
-            //     HighScore = timeScore;
-            //     this.highScoreText.text = HighScore;
-            // }
-            // else
-            //     timeScore = 0;
-        }
-
-        //debug
-        if(Phaser.Input.Keyboard.JustDown(keyR)) {
-            this.scene.start('menuScene');
         }
         this.traffic01.update();
         this.checkTraffic();
-        if(Phaser.Input.Keyboard.JustDown(keyUP)) {
-            this.scene.start('gameOverScene');
-        }
-
+        //debug
+        // if(Phaser.Input.Keyboard.JustDown(keyR)) {
+        //     this.scene.start('menuScene');
+        // }
+        // if(Phaser.Input.Keyboard.JustDown(keyUP)) {
+        //     this.scene.start('gameOverScene');
+        // }
     }
 
     checkTraffic() {
@@ -134,20 +126,26 @@ class Play extends Phaser.Scene {
             if(this.lane == 1){
                 if(this.texturePicker == 1) {
                     this.traffic01 = new Traffic(this, 155, 0, 'hazard1').setOrigin(.5,.85);
+                    this.trafficGroup.add(this.traffic01);
                 } else if (this.texturePicker == 2) {
                     this.traffic01 = new Traffic(this, 155, 0, 'hazard2').setOrigin(.5,.85);
+                    this.trafficGroup.add(this.traffic01);
                 }
             } else if(this.lane == 2){
                 if(this.texturePicker == 1) {
                     this.traffic01 = new Traffic(this, 320, 0, 'hazard1').setOrigin(.5,.85);
+                    this.trafficGroup.add(this.traffic01);
                 } else if (this.texturePicker == 2) {
                     this.traffic01 = new Traffic(this, 320, 0, 'hazard2').setOrigin(.5,.85);
+                    this.trafficGroup.add(this.traffic01);
                 }
             }else if(this.lane == 3){
                 if(this.texturePicker == 1) {
                     this.traffic01 = new Traffic(this, 485, 0, 'hazard1').setOrigin(.5,.85);
+                    this.trafficGroup.add(this.traffic01);
                 } else if (this.texturePicker == 2) {
                     this.traffic01 = new Traffic(this, 485, 0, 'hazard2').setOrigin(.5,.85);
+                    this.trafficGroup.add(this.traffic01);
                 }
             }
         }
