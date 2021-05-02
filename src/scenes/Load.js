@@ -12,6 +12,7 @@ class Load extends Phaser.Scene {
         this.load.image('controls', './assets/controlSplash.png');
         this.load.image('hazard1', './assets/Cone.png');
         this.load.image('hazard2', './assets/OpenManhole.png');
+        
         this.load.image('gameOverScreen', './assets/GameOverSplash.png');
         this.load.image('gameOverScore', './assets/GameOverScore.png');
         this.load.image('gameOverControls', './assets/GameOverControls.png');
