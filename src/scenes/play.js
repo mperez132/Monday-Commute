@@ -1,22 +1,22 @@
 class Play extends Phaser.Scene {
     constructor() {
         super("playScene");
-        this.Distance;
     }
 
     create() {
 
-        this.gameStatus = false;
 
         //road placed
         this.BackgroundRoad = this.add.tileSprite(0,0, game.config.width, game.config.height,
             'Background').setOrigin(0,0);
 
-        this.trafficGroup = this.physics.add.group();
+        this.coneGroup = this.physics.add.group();
+        this.manholeGroup = this.physics.add.group();
+        this.speederGroup = this.physics.add.group();
         this.playerGroup = this.physics.add.group();
 
         this.traffic01 = new Traffic(this, 155, 0, 'hazard2').setOrigin(.5,.85);
-        this.trafficGroup.add(this.traffic01);
+        this.manholeGroup.add(this.traffic01);
 
         this.Controls = this.add.tileSprite(0,0, game.config.width, game.config.height,
             'controls').setOrigin(0,0);
@@ -34,22 +34,7 @@ class Play extends Phaser.Scene {
             this.playerGroup.add(this.commuter01);
         }
 
-        
         this.timeConfig = {
-            fontFamily: 'Courier',
-            bold: true,
-            fontSize: '28px',
-            backgroundColor: '#FF0000',
-            color: '#FFFFFF',
-            align: 'center',
-            padding: {
-                top: 5,
-                bottom: 5,
-            },
-            fixedWidth: 100
-        }
-
-        this.highScoreConfig = {
             fontFamily: 'Courier',
             bold: true,
             fontSize: '28px',
@@ -62,19 +47,35 @@ class Play extends Phaser.Scene {
             },
             fixedWidth: 200
         }
+
+        this.playerConfig = {
+            fontFamily: 'Courier',
+            bold: true,
+            fontSize: '28px',
+            backgroundColor: '#FF0000',
+            color: '#FFFFFF',
+            align: 'left',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 150
+        }
+
+        GameStatus = false;
         
-        this.Distance = this.add.text (
-            game.config.width - 100,
+        this.DistanceText = this.add.text (
+            game.config.width - 180,
             0,
-            0,
+            'Score: ' + timeScore,
             this.timeConfig
         );
         
-        this.highScoreText = this.add.text (
+        this.LivesText = this.add.text (
             0,
             0,
-            "High Score: " + HighScore,
-            this.highScoreConfig
+            'Lives: ' + playerHealth,
+            this.playerConfig
         );
 
         //controls
@@ -87,7 +88,7 @@ class Play extends Phaser.Scene {
 
     }
 
-    update() {
+    update(time, delta) {
         if(GameDiff == false) {
             this.BackgroundRoad.tilePositionY -= menuSpeed;
             this.traffic01.movementSpeed = 1.75;
@@ -97,24 +98,63 @@ class Play extends Phaser.Scene {
             this.traffic01.movementSpeed = 2.55;
         }
 
-        if(!this.gameStatus) {
+        
+        if(!GameStatus) {
+            this.checkPlayer();
             this.commuter01.update();
-            // this.Distance.text = timeScore;
-            // timeScore += 1;
+            this.score += delta
+            timeScore = Math.floor(this.score / 1000);
+            this.DistanceText.text = 'Score: ' + timeScore;
+
         }
-        if(this.physics.collide(this.playerGroup, this.trafficGroup)) {
-            this.gameStatus = true;
-            this.scene.start('gameOverScene');
+        if(this.physics.collide(this.playerGroup, this.coneGroup)) {
+            if(!playerFrames) {
+                playerFrames = true;
+                playerHealth -= 1;
+                this.cameras.main.shake(200, 0.01);
+                this.commuter01.setAlpha(0.5);
+                this.LivesText.text = 'Lives: ' + playerHealth;
+                this.clock = this.time.delayedCall(2000, () => {
+                    this.commuter01.setAlpha(1);
+                    playerFrames = false;
+                }, null, this);
+                this.traffic01.destroy();
+            }
         }
+        if(this.physics.collide(this.playerGroup, this.manholeGroup)) {
+            if(!playerFrames) {
+                playerFrames = true;
+                playerHealth -= 1;
+                this.cameras.main.shake(200, 0.01);
+                this.commuter01.setAlpha(0.5);
+                this.LivesText.text = 'Lives: ' + playerHealth;
+                this.clock = this.time.delayedCall(2000, () => {
+                    this.commuter01.setAlpha(1);
+                    playerFrames = false;
+                }, null, this);
+            }
+        }
+        if(this.physics.collide(this.playerGroup, this.speederGroup)) {
+            if(!playerFrames) {
+                playerFrames = true;
+                playerHealth -= 3;
+                this.cameras.main.shake(200, 0.01);
+                this.LivesText.text = 'Lives: ' + playerHealth;
+            }
+        }
+
         this.traffic01.update();
+        //this.traffic02.update();
         this.checkTraffic();
         //debug
-        // if(Phaser.Input.Keyboard.JustDown(keyR)) {
-        //     this.scene.start('menuScene');
-        // }
-        // if(Phaser.Input.Keyboard.JustDown(keyUP)) {
-        //     this.scene.start('gameOverScene');
-        // }
+        if(Phaser.Input.Keyboard.JustDown(keyR)) {
+            this.scene.start('menuScene');
+            playerHealth = 3;
+            playerFrames = false;
+        }
+        if(Phaser.Input.Keyboard.JustDown(keyUP)) {
+            this.scene.start('gameOverScene');
+        }
     }
 
     checkTraffic() {
@@ -126,28 +166,41 @@ class Play extends Phaser.Scene {
             if(this.lane == 1){
                 if(this.texturePicker == 1) {
                     this.traffic01 = new Traffic(this, 155, 0, 'hazard1').setOrigin(.5,.85);
-                    this.trafficGroup.add(this.traffic01);
+                    this.coneGroup.add(this.traffic01);
                 } else if (this.texturePicker == 2) {
                     this.traffic01 = new Traffic(this, 155, 0, 'hazard2').setOrigin(.5,.85);
-                    this.trafficGroup.add(this.traffic01);
+                    this.manholeGroup.add(this.traffic01);
                 }
             } else if(this.lane == 2){
                 if(this.texturePicker == 1) {
                     this.traffic01 = new Traffic(this, 320, 0, 'hazard1').setOrigin(.5,.85);
-                    this.trafficGroup.add(this.traffic01);
+                    this.coneGroup.add(this.traffic01);
                 } else if (this.texturePicker == 2) {
                     this.traffic01 = new Traffic(this, 320, 0, 'hazard2').setOrigin(.5,.85);
-                    this.trafficGroup.add(this.traffic01);
+                    this.manholeGroup.add(this.traffic01);
                 }
             }else if(this.lane == 3){
                 if(this.texturePicker == 1) {
                     this.traffic01 = new Traffic(this, 485, 0, 'hazard1').setOrigin(.5,.85);
-                    this.trafficGroup.add(this.traffic01);
+                    this.coneGroup.add(this.traffic01);
                 } else if (this.texturePicker == 2) {
                     this.traffic01 = new Traffic(this, 485, 0, 'hazard2').setOrigin(.5,.85);
-                    this.trafficGroup.add(this.traffic01);
+                    this.manholeGroup.add(this.traffic01);
                 }
             }
+        }
+    }
+
+    checkPlayer() {
+        if(playerHealth <= 0) {
+            this.commuter01.destroy();
+            this.traffic01.destroy();
+            //check time and high score
+            if(timeScore > HighScore) {
+                HighScore = timeScore;
+            }
+            GameStatus = true;
+            this.scene.start('gameOverScene');
         }
     }
 

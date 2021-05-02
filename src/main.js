@@ -28,8 +28,11 @@ let newHighScore = false;
 let GameDiff = false; 
 let GameStatus = false; 
 
-let timeScore;
-let HighScore;
+let timeScore = 0;
+let HighScore = 0;
+let playerHealth = 3;
+let playerFrames = false;
+
 let gameSpeed = 2.55;
 let menuSpeed = 1.75;
 

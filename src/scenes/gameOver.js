@@ -22,7 +22,9 @@ class Gameover extends Phaser.Scene {
         
         this.BackgroundRoad.tilePositionY -= menuSpeed;
         if(Phaser.Input.Keyboard.JustDown(keyDOWN)) {
-            GameStatus = true;
+            playerHealth = 3;
+            timeScore = 0;
+            GameStatus = false;
             this.scene.start('menuScene');
         }
     }
