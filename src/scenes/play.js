@@ -174,7 +174,7 @@ class Play extends Phaser.Scene {
     }
 
     checkTraffic() {
-        if(this.traffic01.y >= game.config.height) {
+        if(this.traffic01.y >= game.config.height + 50) {
             this.lane = Math.floor(Math.random() * (4-1) + 1);
             this.texturePicker = Math.floor(Math.random() * (3-1) + 1);
             console.log(this.texturePicker);
@@ -206,7 +206,7 @@ class Play extends Phaser.Scene {
             }
         }
         if(this.temp1 == true) {
-            if(this.traffic02.y >= game.config.height) {
+            if(this.traffic02.y >= game.config.height + 170) {
                 this.lane = Math.floor(Math.random() * (4-1) + 1);
                 this.speed = Math.floor(Math.random() * (6-1) + 2)
                 this.traffic02.destroy();
@@ -237,6 +237,7 @@ class Play extends Phaser.Scene {
                 HighScore = timeScore;
             }
             GameStatus = true;
+            this.temp1 = false;
             this.scene.start('gameOverScene');
         }
     }
