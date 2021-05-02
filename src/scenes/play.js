@@ -23,6 +23,7 @@ class Play extends Phaser.Scene {
             this.commuter01 = new Linda(this, game.config.width/2, game.config.height - 
             borderUISize - borderPadding, 'car2').setOrigin(0.5, 0.85);
         }
+            this.traffic01 = new Traffic(this, 155, 0, 'hazard2').setOrigin(.5,.85);
 
         this.timeConfig = {
             fontFamily: 'Courier',
@@ -101,6 +102,8 @@ class Play extends Phaser.Scene {
         if(Phaser.Input.Keyboard.JustDown(keyR)) {
             this.scene.start('menuScene');
         }
+        this.traffic01.update();
+        
         if(Phaser.Input.Keyboard.JustDown(keyUP)) {
             this.scene.start('gameOverScene');
         }
