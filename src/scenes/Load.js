@@ -10,6 +10,8 @@ class Load extends Phaser.Scene {
         this.load.image('car1', './assets/car.png');
         this.load.image('car2', './assets/carHard.png');
         this.load.image('controls', './assets/controlSplash.png');
+        this.load.image('hazard1', './assets/Cone.png');
+        this.load.image('hazard2', './assets/OpenManhole.png');
 
         //load audio assets
 
