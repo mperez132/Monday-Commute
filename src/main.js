@@ -6,6 +6,16 @@ let config = {
     scale: {
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
+    physics: {
+        default: 'arcade',
+        arcade: {
+            debug: true,
+            gravity: {
+                x: 0,
+                y: 0
+            }
+        }
+    },
     scene: [Load, Menu, Play, Gameover],
 }
 
@@ -16,7 +26,7 @@ let borderPadding = borderUISize + 70;
 
 let newHighScore = false;
 let GameDiff = false; 
-let GameStatus = true; 
+let GameStatus = false; 
 
 let timeScore;
 let HighScore;

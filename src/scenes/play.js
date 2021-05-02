@@ -6,11 +6,17 @@ class Play extends Phaser.Scene {
 
     create() {
 
+        this.gameStatus = false;
+
         //road placed
         this.BackgroundRoad = this.add.tileSprite(0,0, game.config.width, game.config.height,
             'Background').setOrigin(0,0);
 
+        this.trafficGroup = this.physics.add.group();
+        this.playerGroup = this.physics.add.group();
+
         this.traffic01 = new Traffic(this, 155, 0, 'hazard2').setOrigin(.5,.85);
+        this.trafficGroup.add(this.traffic01);
 
         this.Controls = this.add.tileSprite(0,0, game.config.width, game.config.height,
             'controls').setOrigin(0,0);
@@ -19,13 +25,16 @@ class Play extends Phaser.Scene {
             //the player -- a difficulty flag will eventually set which model is used
             this.commuter01 = new Linda(this, game.config.width/2, game.config.height - 
                 borderUISize - borderPadding, 'car1').setOrigin(0.5, 0.85);
+                this.playerGroup.add(this.commuter01);
         }
         else {
             //the player -- a difficulty flag will eventually set which model is used
             this.commuter01 = new Linda(this, game.config.width/2, game.config.height - 
             borderUISize - borderPadding, 'car2').setOrigin(0.5, 0.85);
+            this.playerGroup.add(this.commuter01);
         }
 
+        
         this.timeConfig = {
             fontFamily: 'Courier',
             bold: true,
@@ -88,14 +97,14 @@ class Play extends Phaser.Scene {
             this.traffic01.movementSpeed = 2.55;
         }
 
-        if(this.gameStatus) {
+        if(!this.gameStatus) {
             this.commuter01.update();
             // this.Distance.text = timeScore;
             // timeScore += 1;
         }
-        if(this.checkCollision(this.commuter01, this.traffic01)) {
-            gameStatus = false;
-            
+        if(this.physics.collide(this.playerGroup, this.trafficGroup)) {
+            this.gameStatus = true;
+            this.scene.start('gameOverScene');
             // if(timeScore > HighScore){
             //     HighScore = timeScore;
             //     this.highScoreText.text = HighScore;
@@ -116,20 +125,4 @@ class Play extends Phaser.Scene {
 
     }
 
-    checkCollision(Linda, Traffic) {
-        //from rocket patrol
-        if( Linda.x < Traffic.x + Traffic.width &&
-            Linda.x + Linda.width > Traffic.x &&
-            Linda.y < Traffic.y + Traffic.height &&
-            Linda.height + Linda.y > Traffic.y) {
-                return true;
-        } 
-        else {
-            return false;
-        }
-    }
-
-    playerExplode() {
-
-    }
 }

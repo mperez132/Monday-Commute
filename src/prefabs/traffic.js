@@ -18,12 +18,12 @@ class Traffic extends Phaser.GameObjects.Sprite {
 
 
     reset() {
+        this.y = 0;
         if(this.texturePicker == 1) {
             this.setTexture('hazard1');
         } else if (this.texturePicker == 2) {
             this.setTexture('hazard2');
         }
-        this.y = 0;
         if(this.lane == 1){
             this. x = 155;
         } else if(this.lane == 2){
