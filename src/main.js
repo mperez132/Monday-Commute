@@ -16,7 +16,7 @@ let borderPadding = borderUISize + 70;
 
 let newHighScore = false;
 let GameDiff = false; 
-let GameStatus = false; 
+let GameStatus = true; 
 
 let timeScore;
 let HighScore;
