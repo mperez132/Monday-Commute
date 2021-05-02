@@ -10,6 +10,8 @@ class Play extends Phaser.Scene {
         this.BackgroundRoad = this.add.tileSprite(0,0, game.config.width, game.config.height,
             'Background').setOrigin(0,0);
 
+        this.traffic01 = new Traffic(this, 155, 0, 'hazard2').setOrigin(.5,.85);
+
         this.Controls = this.add.tileSprite(0,0, game.config.width, game.config.height,
             'controls').setOrigin(0,0);
 
@@ -23,7 +25,6 @@ class Play extends Phaser.Scene {
             this.commuter01 = new Linda(this, game.config.width/2, game.config.height - 
             borderUISize - borderPadding, 'car2').setOrigin(0.5, 0.85);
         }
-            this.traffic01 = new Traffic(this, 155, 0, 'hazard2').setOrigin(.5,.85);
 
         this.timeConfig = {
             fontFamily: 'Courier',
@@ -75,22 +76,26 @@ class Play extends Phaser.Scene {
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
         
 
-        
     }
 
     update() {
-        if(GameDiff == false)
+        if(GameDiff == false) {
             this.BackgroundRoad.tilePositionY -= menuSpeed;
-        else
-        this.BackgroundRoad.tilePositionY -= gameSpeed;
+            this.traffic01.movementSpeed = 1.75;
+        }
+        else {
+            this.BackgroundRoad.tilePositionY -= gameSpeed;
+            this.traffic01.movementSpeed = 2.55;
+        }
 
-        if(!this.gameStatus) {
+        if(this.gameStatus) {
             this.commuter01.update();
             // this.Distance.text = timeScore;
             // timeScore += 1;
         }
         if(this.checkCollision(this.commuter01, this.traffic01)) {
-
+            gameStatus = false;
+            
             // if(timeScore > HighScore){
             //     HighScore = timeScore;
             //     this.highScoreText.text = HighScore;
@@ -99,6 +104,7 @@ class Play extends Phaser.Scene {
             //     timeScore = 0;
         }
 
+        //debug
         if(Phaser.Input.Keyboard.JustDown(keyR)) {
             this.scene.start('menuScene');
         }
