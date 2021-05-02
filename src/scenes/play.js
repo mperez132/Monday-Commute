@@ -4,10 +4,6 @@ class Play extends Phaser.Scene {
         this.Distance;
         this.HighScore = 0;
     }
-    //preload assets for the play scene
-    preload() {
-        this.load.image('Background', './assets/BackTemp.png');
-    }
 
     create() {
 
@@ -87,8 +83,6 @@ class Play extends Phaser.Scene {
 
     }
 
-
-
     update() {
         if(GameDiff == false)
             this.BackgroundRoad.tilePositionY -= menuSpeed;
@@ -103,6 +97,11 @@ class Play extends Phaser.Scene {
             this.scene.start('menuScene');
         }
         this.traffic01.update();
+        
+        if(Phaser.Input.Keyboard.JustDown(keyUP)) {
+            this.scene.start('gameOverScene');
+        }
+
     }
 
 
