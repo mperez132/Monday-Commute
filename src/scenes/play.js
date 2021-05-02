@@ -2,7 +2,6 @@ class Play extends Phaser.Scene {
     constructor() {
         super("playScene");
         this.Distance;
-        this.HighScore = 0;
     }
 
     create() {
@@ -52,7 +51,7 @@ class Play extends Phaser.Scene {
             },
             fixedWidth: 200
         }
-
+        
         this.Distance = this.add.text (
             game.config.width - 100,
             0,
@@ -63,7 +62,7 @@ class Play extends Phaser.Scene {
         this.highScoreText = this.add.text (
             0,
             0,
-            "High Score: " + this.HighScore,
+            "High Score: " + HighScore,
             this.highScoreConfig
         );
 
@@ -78,10 +77,6 @@ class Play extends Phaser.Scene {
         
     }
 
-    createTraffic() {
-
-    }
-
     update() {
         if(GameDiff == false)
             this.BackgroundRoad.tilePositionY -= menuSpeed;
@@ -90,6 +85,17 @@ class Play extends Phaser.Scene {
 
         if(!this.gameStatus) {
             this.commuter01.update();
+            // this.Distance.text = timeScore;
+            // timeScore += 1;
+        }
+        if(this.checkCollision(this.commuter01, this.traffic01)) {
+
+            // if(timeScore > HighScore){
+            //     HighScore = timeScore;
+            //     this.highScoreText.text = HighScore;
+            // }
+            // else
+            //     timeScore = 0;
         }
 
         if(Phaser.Input.Keyboard.JustDown(keyR)) {
@@ -101,14 +107,17 @@ class Play extends Phaser.Scene {
 
     }
 
-    checkCollision(linda, traffic) {
+    checkCollision(Linda, Traffic) {
         //from rocket patrol
-        if( linda.x < traffic.x + traffic.width &&
-            linda.x + linda.width > traffic.x &&
-            linda.y < traffic.y + traffic.height &&
-            linda.height + linda.y > traffic.y) {
+        if( Linda.x < Traffic.x + Traffic.width &&
+            Linda.x + Linda.width > Traffic.x &&
+            Linda.y < Traffic.y + Traffic.height &&
+            Linda.height + Linda.y > Traffic.y) {
                 return true;
         } 
+        else {
+            return false;
+        }
     }
 
     playerExplode() {

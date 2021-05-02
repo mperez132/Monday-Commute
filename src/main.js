@@ -18,7 +18,8 @@ let newHighScore = false;
 let GameDiff = false; 
 let GameStatus = false; 
 
-
+let timeScore;
+let HighScore;
 let gameSpeed = 2.55;
 let menuSpeed = 1.75;
 
