@@ -7,15 +7,14 @@ class Traffic extends Phaser.GameObjects.Sprite {
     }
     update() {
         this.y += this.movementSpeed;
-        if(this.y >= game.config.height) {  
-        this.lane = Math.floor(Math.random() * (4-1) + 1);
-        this.texturePicker = Math.floor(Math.random() * (3-1) + 1);
-        console.log(this.texturePicker);
-            this.reset();
-        }
+    //     if(this.y >= game.config.height) {  
+    //     this.lane = Math.floor(Math.random() * (4-1) + 1);
+    //     this.texturePicker = Math.floor(Math.random() * (3-1) + 1);
+    //     console.log(this.texturePicker);
+    //         this.reset();
+    //     }
+    // }
     }
-
-
 
     reset() {
         this.y = 0;

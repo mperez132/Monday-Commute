@@ -118,11 +118,39 @@ class Play extends Phaser.Scene {
             this.scene.start('menuScene');
         }
         this.traffic01.update();
-        
+        this.checkTraffic();
         if(Phaser.Input.Keyboard.JustDown(keyUP)) {
             this.scene.start('gameOverScene');
         }
 
+    }
+
+    checkTraffic() {
+        if(this.traffic01.y >= game.config.height) {
+            this.lane = Math.floor(Math.random() * (4-1) + 1);
+            this.texturePicker = Math.floor(Math.random() * (3-1) + 1);
+            console.log(this.texturePicker);
+            this.traffic01.destroy();
+            if(this.lane == 1){
+                if(this.texturePicker == 1) {
+                    this.traffic01 = new Traffic(this, 155, 0, 'hazard1').setOrigin(.5,.85);
+                } else if (this.texturePicker == 2) {
+                    this.traffic01 = new Traffic(this, 155, 0, 'hazard2').setOrigin(.5,.85);
+                }
+            } else if(this.lane == 2){
+                if(this.texturePicker == 1) {
+                    this.traffic01 = new Traffic(this, 320, 0, 'hazard1').setOrigin(.5,.85);
+                } else if (this.texturePicker == 2) {
+                    this.traffic01 = new Traffic(this, 320, 0, 'hazard2').setOrigin(.5,.85);
+                }
+            }else if(this.lane == 3){
+                if(this.texturePicker == 1) {
+                    this.traffic01 = new Traffic(this, 485, 0, 'hazard1').setOrigin(.5,.85);
+                } else if (this.texturePicker == 2) {
+                    this.traffic01 = new Traffic(this, 485, 0, 'hazard2').setOrigin(.5,.85);
+                }
+            }
+        }
     }
 
 }
