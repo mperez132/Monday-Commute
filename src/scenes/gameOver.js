@@ -1,18 +1,17 @@
-class gameOver extends Phaser.Scene {
+class Gameover extends Phaser.Scene {
     constructor(){
         super("gameOverScene");
     }
 
-    preload() {
-        this.load.image('gameOverScreen', './assets/gameOverScreen.png');
-        this.load.image('backTemp', './assets/backTemp.png');
-    }
-
     create() {
-        this.backTemp = this.add.tileSprite(0,0, game.config.width, game.config.height,
-            'backTemp').setOrigin(0,0);
-        this.menuTemp = this.add.tileSprite(0,0, game.config.width, game.config.height,
+        this.BackgroundRoad = this.add.tileSprite(0,0, game.config.width, game.config.height,
+            'Background').setOrigin(0,0);
+        this.gameOverText = this.add.tileSprite(0,0, game.config.width, game.config.height,
             'gameOverScreen').setOrigin(0,0);
+        this.goControls = this.add.tileSprite(0,0, game.config.width, game.config.height,
+            'gameOverControls').setOrigin(0,0);
+        this.goScore = this.add.tileSprite(0,0, game.config.width, game.config.height,
+            'gameOverScore').setOrigin(0,0);
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
@@ -21,10 +20,10 @@ class gameOver extends Phaser.Scene {
 
     update() {
         
-        this.backTemp.tilePositionY -= menuSpeed;
+        this.BackgroundRoad.tilePositionY -= menuSpeed;
         if(Phaser.Input.Keyboard.JustDown(keyDOWN)) {
             GameStatus = false;
-            this.scene.start('menu');
+            this.scene.start('menuScene');
         }
     }
 }
