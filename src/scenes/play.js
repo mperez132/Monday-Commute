@@ -1,6 +1,7 @@
 class Play extends Phaser.Scene {
     constructor() {
         super("playScene");
+        this.temp1 = false;
     }
 
     create() {
@@ -9,14 +10,66 @@ class Play extends Phaser.Scene {
         //road placed
         this.BackgroundRoad = this.add.tileSprite(0,0, game.config.width, game.config.height,
             'Background').setOrigin(0,0);
-
+    
         this.coneGroup = this.physics.add.group();
         this.manholeGroup = this.physics.add.group();
         this.speederGroup = this.physics.add.group();
         this.playerGroup = this.physics.add.group();
-
+    
         this.traffic01 = new Traffic(this, 155, 0, 'hazard2').setOrigin(.5,.85);
         this.manholeGroup.add(this.traffic01);
+
+        this.clock = this.time.delayedCall(10000, () => {
+            this.traffic02 = new Traffic(this, 155, 0, 'speedHazard').setOrigin(.5,.85);
+            this.traffic02.movementSpeed = 5;
+            this.speederGroup.add(this.traffic02);
+            this.temp1 = true;
+        }, null, this);
+
+        this.timeConfig = {
+            fontFamily: 'Courier',
+            bold: true,
+            fontSize: '28px',
+            backgroundColor: '#FF0000',
+            color: '#FFFFFF',
+            align: 'left',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 200
+        }
+    
+        this.playerConfig = {
+            fontFamily: 'Courier',
+            bold: true,
+            fontSize: '28px',
+            backgroundColor: '#FF0000',
+            color: '#FFFFFF',
+            align: 'left',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 150
+        }
+    
+        GameStatus = false;
+            
+        this.DistanceText = this.add.text (
+            game.config.width - 180,
+            0,
+            'Score: ' + timeScore,
+            this.timeConfig
+        );
+            
+        this.LivesText = this.add.text (
+            0,
+            0,
+            'Lives: ' + playerHealth,
+            this.playerConfig
+        );
+        this.score = 0;
 
         this.Controls = this.add.tileSprite(0,0, game.config.width, game.config.height,
             'controls').setOrigin(0,0);
@@ -34,58 +87,12 @@ class Play extends Phaser.Scene {
             this.playerGroup.add(this.commuter01);
         }
 
-        this.timeConfig = {
-            fontFamily: 'Courier',
-            bold: true,
-            fontSize: '28px',
-            backgroundColor: '#FF0000',
-            color: '#FFFFFF',
-            align: 'left',
-            padding: {
-                top: 5,
-                bottom: 5,
-            },
-            fixedWidth: 200
-        }
-
-        this.playerConfig = {
-            fontFamily: 'Courier',
-            bold: true,
-            fontSize: '28px',
-            backgroundColor: '#FF0000',
-            color: '#FFFFFF',
-            align: 'left',
-            padding: {
-                top: 5,
-                bottom: 5,
-            },
-            fixedWidth: 150
-        }
-
-        GameStatus = false;
-        
-        this.DistanceText = this.add.text (
-            game.config.width - 180,
-            0,
-            'Score: ' + timeScore,
-            this.timeConfig
-        );
-        
-        this.LivesText = this.add.text (
-            0,
-            0,
-            'Lives: ' + playerHealth,
-            this.playerConfig
-        );
-
         //controls
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
-        
-
     }
 
     update(time, delta) {
@@ -98,7 +105,6 @@ class Play extends Phaser.Scene {
             this.traffic01.movementSpeed = 2.55;
         }
 
-        
         if(!GameStatus) {
             this.checkPlayer();
             this.commuter01.update();
@@ -114,7 +120,11 @@ class Play extends Phaser.Scene {
                 this.cameras.main.shake(200, 0.01);
                 this.commuter01.setAlpha(0.5);
                 this.LivesText.text = 'Lives: ' + playerHealth;
-                this.clock = this.time.delayedCall(2000, () => {
+                if(GameDiff == false) 
+                    this.temp = 3000;
+                else 
+                    this.temp = 2000;
+                this.clock = this.time.delayedCall(this.temp, () => {
                     this.commuter01.setAlpha(1);
                     playerFrames = false;
                 }, null, this);
@@ -128,12 +138,17 @@ class Play extends Phaser.Scene {
                 this.cameras.main.shake(200, 0.01);
                 this.commuter01.setAlpha(0.5);
                 this.LivesText.text = 'Lives: ' + playerHealth;
-                this.clock = this.time.delayedCall(2000, () => {
+                if(GameDiff == false) 
+                    this.temp = 3000;
+                 else 
+                    this.temp = 2000;
+                this.clock = this.time.delayedCall(this.temp, () => {
                     this.commuter01.setAlpha(1);
                     playerFrames = false;
                 }, null, this);
             }
         }
+
         if(this.physics.collide(this.playerGroup, this.speederGroup)) {
             if(!playerFrames) {
                 playerFrames = true;
@@ -144,7 +159,8 @@ class Play extends Phaser.Scene {
         }
 
         this.traffic01.update();
-        //this.traffic02.update();
+        if(this.temp1 == true)
+            this.traffic02.update();
         this.checkTraffic();
         //debug
         if(Phaser.Input.Keyboard.JustDown(keyR)) {
@@ -189,12 +205,33 @@ class Play extends Phaser.Scene {
                 }
             }
         }
+        if(this.temp1 == true) {
+            if(this.traffic02.y >= game.config.height) {
+                this.lane = Math.floor(Math.random() * (4-1) + 1);
+                this.speed = Math.floor(Math.random() * (6-1) + 2)
+                this.traffic02.destroy();
+                if(this.lane == 1){
+                    this.traffic02 = new Traffic(this, 485, 0, 'speedHazard').setOrigin(.5,.85);
+                    this.speederGroup.add(this.traffic02);
+                    this.traffic02.movementSpeed = this.speed;
+                } else if(this.lane == 2){
+                    this.traffic02 = new Traffic(this, 485, 0, 'speedHazard').setOrigin(.5,.85);
+                    this.speederGroup.add(this.traffic02);
+                    this.traffic02.movementSpeed = this.speed;
+                }else if(this.lane == 3){
+                    this.traffic02 = new Traffic(this, 485, 0, 'speedHazard').setOrigin(.5,.85);
+                    this.speederGroup.add(this.traffic02);
+                    this.traffic02.movementSpeed = this.speed;
+                }
+            }
+        }
     }
 
     checkPlayer() {
         if(playerHealth <= 0) {
             this.commuter01.destroy();
             this.traffic01.destroy();
+            this.traffic02.destroy();
             //check time and high score
             if(timeScore > HighScore) {
                 HighScore = timeScore;
