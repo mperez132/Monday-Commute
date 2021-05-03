@@ -100,9 +100,7 @@ class Play extends Phaser.Scene {
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
     
-    
-        this.Controls = this.add.tileSprite(0,0, game.config.width, game.config.height,
-            'controls').setOrigin(0,0);
+
     }
 
     update(time, delta) {

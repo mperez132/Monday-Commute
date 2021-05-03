@@ -15,6 +15,9 @@ class Menu extends Phaser.Scene {
         this.commuter = new Linda(this, game.config.width/2, game.config.height - 
             borderUISize - borderPadding, 'car1').setOrigin(0.5, 0.85);
 
+        this.Controls = this.add.tileSprite(0,0, game.config.width, game.config.height,
+            'controls').setOrigin(0,0);
+
             
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
