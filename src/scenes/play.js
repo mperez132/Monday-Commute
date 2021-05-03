@@ -20,7 +20,7 @@ class Play extends Phaser.Scene {
         this.traffic01 = new Traffic(this, 155, 0, 'hazard2').setOrigin(.5,.85);
         this.manholeGroup.add(this.traffic01);
 
-        this.clock = this.time.delayedCall(2000, () => {
+        this.clock = this.time.delayedCall(1000, () => {
             this.traffic03 = new Traffic(this, 320, 0, 'hazard2').setOrigin(.5,.85);
             this.manholeGroup.add(this.traffic03);
             this.temp2 = true;
@@ -105,15 +105,20 @@ class Play extends Phaser.Scene {
     }
 
     update(time, delta) {
+        
         if(GameDiff == false) {
             this.BackgroundRoad.tilePositionY -= menuSpeed;
             this.traffic01.movementSpeed = 2.55;
+            if(this.temp1 == true)
+                this.traffic02.movementSpeed = 2.55
             if(this.temp2 == true)
                 this.traffic03.movementSpeed = 2.55;
         }
         else {
             this.BackgroundRoad.tilePositionY -= gameSpeed;
             this.traffic01.movementSpeed = 4.5;
+            if(this.temp1 == true)
+                this.traffic02.movementSpeed = 4.5
             if(this.temp2 == true)
                 this.traffic03.movementSpeed = 4.5;
             
@@ -174,10 +179,10 @@ class Play extends Phaser.Scene {
         }
 
         this.traffic01.update();
-        if(this.temp2 == true)
-            this.traffic03.update();
         if(this.temp1 == true)
             this.traffic02.update();
+        if(this.temp2 == true)
+            this.traffic03.update();
         this.checkTraffic();
         //debug
         // if(Phaser.Input.Keyboard.JustDown(keyR)) {
@@ -244,7 +249,7 @@ class Play extends Phaser.Scene {
                 }
             }
         }
-        if(this.temp1 == true) {
+        if(this.temp2 == true) {
             if(this.traffic03.y >= game.config.height + 50) {
                 this.lane = Math.floor(Math.random() * (4-1) + 1);
                 this.texturePicker = Math.floor(Math.random() * (3-1) + 1);
@@ -281,20 +286,16 @@ class Play extends Phaser.Scene {
             if(this.traffic02.y >= game.config.height + 170) {
                 this.lane = Math.floor(Math.random() * (4-1) + 1);
                 console.log(this.lane + 'lane');
-                this.speed = Math.floor(Math.random() * (6-1) + 4)
                 this.traffic02.destroy();
                 if(this.lane == 1){
                     this.traffic02 = new Traffic(this, 155, 0, 'speedHazard').setOrigin(.5,.85);
                     this.speederGroup.add(this.traffic02);
-                    this.traffic02.movementSpeed = 3
                 } else if(this.lane == 2){
                     this.traffic02 = new Traffic(this, 320, 0, 'speedHazard').setOrigin(.5,.85);
                     this.speederGroup.add(this.traffic02);
-                    this.traffic02.movementSpeed = 5;
                 }else if(this.lane == 3){
                     this.traffic02 = new Traffic(this, 485, 0, 'speedHazard').setOrigin(.5,.85);
                     this.speederGroup.add(this.traffic02);
-                    this.traffic02.movementSpeed = 4;
                 }
             }
         }
