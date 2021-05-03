@@ -20,7 +20,7 @@ class Play extends Phaser.Scene {
         this.traffic01 = new Traffic(this, 155, 0, 'hazard2').setOrigin(.5,.85);
         this.manholeGroup.add(this.traffic01);
 
-        this.clock = this.time.delayedCall(1000, () => {
+        this.clock = this.time.delayedCall(3000, () => {
             this.traffic03 = new Traffic(this, 320, 0, 'hazard2').setOrigin(.5,.85);
             this.manholeGroup.add(this.traffic03);
             this.temp2 = true;
@@ -80,9 +80,6 @@ class Play extends Phaser.Scene {
         );
         this.score = 0;
 
-        this.Controls = this.add.tileSprite(0,0, game.config.width, game.config.height,
-            'controls').setOrigin(0,0);
-
         if(GameDiff == false) {
             //the player -- a difficulty flag will eventually set which model is used
             this.commuter01 = new Linda(this, game.config.width/2, game.config.height - 
@@ -102,6 +99,10 @@ class Play extends Phaser.Scene {
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
+    
+    
+        this.Controls = this.add.tileSprite(0,0, game.config.width, game.config.height,
+            'controls').setOrigin(0,0);
     }
 
     update(time, delta) {
@@ -147,7 +148,6 @@ class Play extends Phaser.Scene {
                     this.commuter01.setAlpha(1);
                     playerFrames = false;
                 }, null, this);
-                this.traffic01.destroy();
             }
         }
         if(this.physics.collide(this.playerGroup, this.manholeGroup)) {
@@ -177,6 +177,14 @@ class Play extends Phaser.Scene {
                 playerFrames = false;
             }
         }
+
+        if(this.physics.collide(this.speederGroup, this.manholeGroup)) {
+            this.traffic01.destroy();
+        }
+        if(this.physics.collide(this.speederGroup, this.coneGroup)) {
+            this.traffic03.destroy();
+        }
+        
 
         this.traffic01.update();
         if(this.temp1 == true)
@@ -225,26 +233,26 @@ class Play extends Phaser.Scene {
             this.traffic01.destroy();
             if(this.lane == 1){
                 if(this.texturePicker == 1) {
-                    this.traffic01 = new Traffic(this, 155, 0, 'hazard1').setOrigin(.5,.85);
-                    this.coneGroup.add(this.traffic01);
+                    this.traffic01 = new Traffic(this, 155, -100, 'hazard1').setOrigin(.5,.85);
+                    this.manholeGroup.add(this.traffic01);
                 } else if (this.texturePicker == 2) {
-                    this.traffic01 = new Traffic(this, 155, 0, 'hazard2').setOrigin(.5,.85);
+                    this.traffic01 = new Traffic(this, 155, -100, 'hazard2').setOrigin(.5,.85);
                     this.manholeGroup.add(this.traffic01);
                 }
             } else if(this.lane == 2){
                 if(this.texturePicker == 1) {
-                    this.traffic01 = new Traffic(this, 320, 0, 'hazard1').setOrigin(.5,.85);
-                    this.coneGroup.add(this.traffic01);
+                    this.traffic01 = new Traffic(this, 320, -100, 'hazard1').setOrigin(.5,.85);
+                    this.manholeGroup.add(this.traffic01);
                 } else if (this.texturePicker == 2) {
-                    this.traffic01 = new Traffic(this, 320, 0, 'hazard2').setOrigin(.5,.85);
+                    this.traffic01 = new Traffic(this, 320, -100, 'hazard2').setOrigin(.5,.85);
                     this.manholeGroup.add(this.traffic01);
                 }
             }else if(this.lane == 3){
                 if(this.texturePicker == 1) {
-                    this.traffic01 = new Traffic(this, 485, 0, 'hazard1').setOrigin(.5,.85);
-                    this.coneGroup.add(this.traffic01);
+                    this.traffic01 = new Traffic(this, 485, -100, 'hazard1').setOrigin(.5,.85);
+                    this.manholeGroup.add(this.traffic01);
                 } else if (this.texturePicker == 2) {
-                    this.traffic01 = new Traffic(this, 485, 0, 'hazard2').setOrigin(.5,.85);
+                    this.traffic01 = new Traffic(this, 485, -100, 'hazard2').setOrigin(.5,.85);
                     this.manholeGroup.add(this.traffic01);
                 }
             }
@@ -257,27 +265,27 @@ class Play extends Phaser.Scene {
                 this.traffic03.destroy();
                 if(this.lane == 1){
                     if(this.texturePicker == 1) {
-                        this.traffic03 = new Traffic(this, 155, 0, 'hazard1').setOrigin(.5,.85);
+                        this.traffic03 = new Traffic(this, 155, -100, 'hazard1').setOrigin(.5,.85);
                         this.coneGroup.add(this.traffic03);
                     } else if (this.texturePicker == 2) {
-                        this.traffic03 = new Traffic(this, 155, 0, 'hazard2').setOrigin(.5,.85);
-                        this.manholeGroup.add(this.traffic03);
+                        this.traffic03 = new Traffic(this, 155, -100, 'hazard2').setOrigin(.5,.85);
+                        this.coneGroup.add(this.traffic03);
                     }
                 } else if(this.lane == 2){
                     if(this.texturePicker == 1) {
-                        this.traffic03 = new Traffic(this, 320, 0, 'hazard1').setOrigin(.5,.85);
+                        this.traffic03 = new Traffic(this, 320, -100, 'hazard1').setOrigin(.5,.85);
                         this.coneGroup.add(this.traffic03);
                     } else if (this.texturePicker == 2) {
-                        this.traffic03 = new Traffic(this, 320, 0, 'hazard2').setOrigin(.5,.85);
-                        this.manholeGroup.add(this.traffic03);
+                        this.traffic03 = new Traffic(this, 320, -100, 'hazard2').setOrigin(.5,.85);
+                        this.coneGroup.add(this.traffic03);
                     }
                 }else if(this.lane == 3){
                     if(this.texturePicker == 1) {
-                        this.traffic03 = new Traffic(this, 485, 0, 'hazard1').setOrigin(.5,.85);
+                        this.traffic03 = new Traffic(this, 485, -100, 'hazard1').setOrigin(.5,.85);
                         this.coneGroup.add(this.traffic03);
                     } else if (this.texturePicker == 2) {
-                        this.traffic03 = new Traffic(this, 485, 0, 'hazard2').setOrigin(.5,.85);
-                        this.manholeGroup.add(this.traffic03);
+                        this.traffic03 = new Traffic(this, 485, -100, 'hazard2').setOrigin(.5,.85);
+                        this.coneGroup.add(this.traffic03);
                     }
                 }
             }
@@ -288,13 +296,13 @@ class Play extends Phaser.Scene {
                 console.log(this.lane + 'lane');
                 this.traffic02.destroy();
                 if(this.lane == 1){
-                    this.traffic02 = new Traffic(this, 155, 0, 'speedHazard').setOrigin(.5,.85);
+                    this.traffic02 = new Traffic(this, 155, -100, 'speedHazard').setOrigin(.5,.85);
                     this.speederGroup.add(this.traffic02);
                 } else if(this.lane == 2){
-                    this.traffic02 = new Traffic(this, 320, 0, 'speedHazard').setOrigin(.5,.85);
+                    this.traffic02 = new Traffic(this, 320, -100, 'speedHazard').setOrigin(.5,.85);
                     this.speederGroup.add(this.traffic02);
                 }else if(this.lane == 3){
-                    this.traffic02 = new Traffic(this, 485, 0, 'speedHazard').setOrigin(.5,.85);
+                    this.traffic02 = new Traffic(this, 485, -100, 'speedHazard').setOrigin(.5,.85);
                     this.speederGroup.add(this.traffic02);
                 }
             }
