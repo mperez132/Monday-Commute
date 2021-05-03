@@ -20,20 +20,18 @@ class Play extends Phaser.Scene {
         this.traffic01 = new Traffic(this, 155, 0, 'hazard2').setOrigin(.5,.85);
         this.manholeGroup.add(this.traffic01);
 
-        this.clock = this.time.delayedCall(3000, () => {
+        this.clock = this.time.delayedCall(2250, () => {
             this.traffic03 = new Traffic(this, 320, 0, 'hazard2').setOrigin(.5,.85);
             this.manholeGroup.add(this.traffic03);
             this.temp2 = true;
         }, null, this);
 
-        this.clock = this.time.delayedCall(10000, () => {
+        this.clock = this.time.delayedCall(22500, () => {
             this.traffic02 = new Traffic(this, 155, 0, 'speedHazard').setOrigin(.5,.85);
             this.traffic02.movementSpeed = 5;
             this.speederGroup.add(this.traffic02);
             this.temp1 = true;
         }, null, this);
-
-
 
         this.timeConfig = {
             fontFamily: 'Courier',
@@ -100,7 +98,6 @@ class Play extends Phaser.Scene {
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
     
-
     }
 
     update(time, delta) {
@@ -180,6 +177,9 @@ class Play extends Phaser.Scene {
             this.traffic01.destroy();
         }
         if(this.physics.collide(this.speederGroup, this.coneGroup)) {
+            this.traffic03.destroy();
+        }
+        if(this.physics.collide(this.manholeGroup, this.coneGroup)) {
             this.traffic03.destroy();
         }
         
