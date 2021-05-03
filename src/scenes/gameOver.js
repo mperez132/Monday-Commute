@@ -4,6 +4,9 @@ class Gameover extends Phaser.Scene {
     }
 
     create() {
+        this.music = this.sound.add('go_loop');
+        this.music.volume = 0.05;
+        this.music.play();
         this.BackgroundRoad = this.add.tileSprite(0,0, game.config.width, game.config.height,
             'Background').setOrigin(0,0);
         this.gameOverText = this.add.tileSprite(0,0, game.config.width, game.config.height,
@@ -43,6 +46,7 @@ class Gameover extends Phaser.Scene {
             playerHealth = 3;
             timeScore = 0;
             GameStatus = false;
+            this.music.stop();
             this.scene.start('menuScene');
         }
     }

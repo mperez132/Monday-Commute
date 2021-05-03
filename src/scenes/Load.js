@@ -19,6 +19,10 @@ class Load extends Phaser.Scene {
 
         //load audio assets
 
+        this.load.audio('main_loop', './assets/Main_Game_Loop.mp3');
+        this.load.audio('go_loop', './assets/Game_Over.mp3');
+        this.load.audio('car_hit', './assets/Car_Hit.mp3');
+        this.load.audio('hazard_hit', './assets/Cone_Hit.mp3');
 
     }
     create() {

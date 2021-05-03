@@ -4,7 +4,10 @@ class Menu extends Phaser.Scene {
     }
 
     create() {
-
+        this.music = this.sound.add('main_loop');
+        this.music.volume = 0.05;
+        this.music.play();
+        this.music.loop = true;
         this.BackgroundRoad = this.add.tileSprite(0,0, game.config.width, game.config.height,
             'Background').setOrigin(0,0);
         this.menuTemp = this.add.tileSprite(0,0, game.config.width, game.config.height,
@@ -30,11 +33,13 @@ class Menu extends Phaser.Scene {
         //easy mode
         if(Phaser.Input.Keyboard.JustDown(keyUP)) {
             GameDiff = false;
+            this.music.stop();
             this.scene.start('playScene');
         }
         //hard mode
         if(Phaser.Input.Keyboard.JustDown(keyDOWN)) {
             GameDiff = true; 
+            this.music.stop();
             this.scene.start('playScene');
         }
     }

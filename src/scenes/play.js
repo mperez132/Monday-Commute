@@ -130,6 +130,9 @@ class Play extends Phaser.Scene {
         }
         if(this.physics.collide(this.playerGroup, this.coneGroup)) {
             if(!playerFrames) {
+                this.music = this.sound.add('hazard_hit');
+                this.music.volume = 0.05;
+                this.music.play();
                 playerFrames = true;
                 playerHealth -= 1;
                 this.cameras.main.shake(200, 0.01);
@@ -147,6 +150,9 @@ class Play extends Phaser.Scene {
         }
         if(this.physics.collide(this.playerGroup, this.manholeGroup)) {
             if(!playerFrames) {
+                this.music = this.sound.add('hazard_hit');
+                this.music.volume = 0.05;
+                this.music.play();
                 playerFrames = true;
                 playerHealth -= 1;
                 this.cameras.main.shake(200, 0.01);
@@ -165,6 +171,9 @@ class Play extends Phaser.Scene {
 
         if(this.physics.collide(this.playerGroup, this.speederGroup)) {
             if(!playerFrames) {
+                this.music = this.sound.add('car_hit');
+                this.music.volume = 0.05;
+                this.music.play();
                 playerFrames = true;
                 playerHealth = 0;
                 this.cameras.main.shake(200, 0.01);
