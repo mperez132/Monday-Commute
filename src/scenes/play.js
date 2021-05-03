@@ -311,8 +311,10 @@ class Play extends Phaser.Scene {
         if(playerHealth <= 0) {
             this.commuter01.destroy();
             this.traffic01.destroy();
+            if(this.temp1 == true)
             this.traffic02.destroy();
-            this.traffic03.destroy();
+            if(this.temp2 == true)
+                this.traffic03.destroy();
             //check time and high score
             if(timeScore > HighScore) {
                 HighScore = timeScore;
