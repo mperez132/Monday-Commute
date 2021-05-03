@@ -20,7 +20,7 @@ class Play extends Phaser.Scene {
         this.traffic01 = new Traffic(this, 155, 0, 'hazard2').setOrigin(.5,.85);
         this.manholeGroup.add(this.traffic01);
 
-        this.clock = this.time.delayedCall(2500, () => {
+        this.clock = this.time.delayedCall(2000, () => {
             this.traffic03 = new Traffic(this, 320, 0, 'hazard2').setOrigin(.5,.85);
             this.manholeGroup.add(this.traffic03);
             this.temp2 = true;
