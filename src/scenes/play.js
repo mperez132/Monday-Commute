@@ -2,6 +2,7 @@ class Play extends Phaser.Scene {
     constructor() {
         super("playScene");
         this.temp1 = false;
+        this.temp2 = false;
     }
 
     create() {
@@ -19,12 +20,20 @@ class Play extends Phaser.Scene {
         this.traffic01 = new Traffic(this, 155, 0, 'hazard2').setOrigin(.5,.85);
         this.manholeGroup.add(this.traffic01);
 
+        this.clock = this.time.delayedCall(2500, () => {
+            this.traffic03 = new Traffic(this, 320, 0, 'hazard2').setOrigin(.5,.85);
+            this.manholeGroup.add(this.traffic03);
+            this.temp2 = true;
+        }, null, this);
+
         this.clock = this.time.delayedCall(10000, () => {
             this.traffic02 = new Traffic(this, 155, 0, 'speedHazard').setOrigin(.5,.85);
             this.traffic02.movementSpeed = 5;
             this.speederGroup.add(this.traffic02);
             this.temp1 = true;
         }, null, this);
+
+
 
         this.timeConfig = {
             fontFamily: 'Courier',
@@ -98,11 +107,16 @@ class Play extends Phaser.Scene {
     update(time, delta) {
         if(GameDiff == false) {
             this.BackgroundRoad.tilePositionY -= menuSpeed;
-            this.traffic01.movementSpeed = 1.75;
+            this.traffic01.movementSpeed = 2.55;
+            if(this.temp2 == true)
+                this.traffic03.movementSpeed = 2.55;
         }
         else {
             this.BackgroundRoad.tilePositionY -= gameSpeed;
-            this.traffic01.movementSpeed = 2.55;
+            this.traffic01.movementSpeed = 4.5;
+            if(this.temp2 == true)
+                this.traffic03.movementSpeed = 4.5;
+            
         }
 
         if(!GameStatus) {
@@ -160,12 +174,12 @@ class Play extends Phaser.Scene {
         }
 
         this.traffic01.update();
+        if(this.temp2 == true)
+            this.traffic03.update();
         if(this.temp1 == true)
             this.traffic02.update();
         this.checkTraffic();
         //debug
-
-        
         // if(Phaser.Input.Keyboard.JustDown(keyR)) {
         //     playerFrames = false;
         //     playerHealth = 3;
@@ -231,22 +245,56 @@ class Play extends Phaser.Scene {
             }
         }
         if(this.temp1 == true) {
+            if(this.traffic03.y >= game.config.height + 50) {
+                this.lane = Math.floor(Math.random() * (4-1) + 1);
+                this.texturePicker = Math.floor(Math.random() * (3-1) + 1);
+                console.log(this.texturePicker);
+                this.traffic03.destroy();
+                if(this.lane == 1){
+                    if(this.texturePicker == 1) {
+                        this.traffic03 = new Traffic(this, 155, 0, 'hazard1').setOrigin(.5,.85);
+                        this.coneGroup.add(this.traffic03);
+                    } else if (this.texturePicker == 2) {
+                        this.traffic03 = new Traffic(this, 155, 0, 'hazard2').setOrigin(.5,.85);
+                        this.manholeGroup.add(this.traffic03);
+                    }
+                } else if(this.lane == 2){
+                    if(this.texturePicker == 1) {
+                        this.traffic03 = new Traffic(this, 320, 0, 'hazard1').setOrigin(.5,.85);
+                        this.coneGroup.add(this.traffic03);
+                    } else if (this.texturePicker == 2) {
+                        this.traffic03 = new Traffic(this, 320, 0, 'hazard2').setOrigin(.5,.85);
+                        this.manholeGroup.add(this.traffic03);
+                    }
+                }else if(this.lane == 3){
+                    if(this.texturePicker == 1) {
+                        this.traffic03 = new Traffic(this, 485, 0, 'hazard1').setOrigin(.5,.85);
+                        this.coneGroup.add(this.traffic03);
+                    } else if (this.texturePicker == 2) {
+                        this.traffic03 = new Traffic(this, 485, 0, 'hazard2').setOrigin(.5,.85);
+                        this.manholeGroup.add(this.traffic03);
+                    }
+                }
+            }
+        }
+        if(this.temp1 == true) {
             if(this.traffic02.y >= game.config.height + 170) {
                 this.lane = Math.floor(Math.random() * (4-1) + 1);
-                this.speed = Math.floor(Math.random() * (6-1) + 2)
+                console.log(this.lane + 'lane');
+                this.speed = Math.floor(Math.random() * (6-1) + 4)
                 this.traffic02.destroy();
                 if(this.lane == 1){
-                    this.traffic02 = new Traffic(this, 485, 0, 'speedHazard').setOrigin(.5,.85);
+                    this.traffic02 = new Traffic(this, 155, 0, 'speedHazard').setOrigin(.5,.85);
                     this.speederGroup.add(this.traffic02);
-                    this.traffic02.movementSpeed = this.speed;
+                    this.traffic02.movementSpeed = 3
                 } else if(this.lane == 2){
-                    this.traffic02 = new Traffic(this, 485, 0, 'speedHazard').setOrigin(.5,.85);
+                    this.traffic02 = new Traffic(this, 320, 0, 'speedHazard').setOrigin(.5,.85);
                     this.speederGroup.add(this.traffic02);
-                    this.traffic02.movementSpeed = this.speed;
+                    this.traffic02.movementSpeed = 5;
                 }else if(this.lane == 3){
                     this.traffic02 = new Traffic(this, 485, 0, 'speedHazard').setOrigin(.5,.85);
                     this.speederGroup.add(this.traffic02);
-                    this.traffic02.movementSpeed = this.speed;
+                    this.traffic02.movementSpeed = 4;
                 }
             }
         }
@@ -257,6 +305,7 @@ class Play extends Phaser.Scene {
             this.commuter01.destroy();
             this.traffic01.destroy();
             this.traffic02.destroy();
+            this.traffic03.destroy();
             //check time and high score
             if(timeScore > HighScore) {
                 HighScore = timeScore;
@@ -264,6 +313,7 @@ class Play extends Phaser.Scene {
             GameStatus = true;
             playerFrames = false;
             this.temp1 = false;
+            this.temp2 = false;
             this.scene.start('gameOverScene');
         }
     }

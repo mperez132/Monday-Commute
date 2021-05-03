@@ -33,7 +33,7 @@ let HighScore = 0;
 let playerHealth = 3;
 let playerFrames = false;
 
-let gameSpeed = 2.55;
-let menuSpeed = 1.75;
+let gameSpeed = 4.5;
+let menuSpeed = 2.55;
 
 let keyLEFT, keyRIGHT, keyR, keyUP, keyDOWN;
