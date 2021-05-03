@@ -152,9 +152,10 @@ class Play extends Phaser.Scene {
         if(this.physics.collide(this.playerGroup, this.speederGroup)) {
             if(!playerFrames) {
                 playerFrames = true;
-                playerHealth -= 3;
+                playerHealth = 0;
                 this.cameras.main.shake(200, 0.01);
                 this.LivesText.text = 'Lives: ' + playerHealth;
+                playerFrames = false;
             }
         }
 
@@ -163,14 +164,38 @@ class Play extends Phaser.Scene {
             this.traffic02.update();
         this.checkTraffic();
         //debug
-        if(Phaser.Input.Keyboard.JustDown(keyR)) {
-            this.scene.start('menuScene');
-            playerHealth = 3;
-            playerFrames = false;
-        }
-        if(Phaser.Input.Keyboard.JustDown(keyUP)) {
-            this.scene.start('gameOverScene');
-        }
+
+        
+        // if(Phaser.Input.Keyboard.JustDown(keyR)) {
+        //     playerFrames = false;
+        //     playerHealth = 3;
+        //     this.commuter01.destroy();
+        //     this.traffic01.destroy();
+        //     if(this.temp1 == true) 
+        //         this.traffic02.destroy();
+        //     //check time and high score
+        //     if(timeScore > HighScore) {
+        //         HighScore = timeScore;
+        //     }
+        //     timeScore = 0;
+        //     GameStatus = true;
+        //     this.temp1 = false;
+        //     this.scene.start('menuScene');
+        // }
+        // if(Phaser.Input.Keyboard.JustDown(keyUP)) {
+        //     this.commuter01.destroy();
+        //     this.traffic01.destroy();
+        //     if(this.temp1 == true) 
+        //         this.traffic02.destroy();
+
+        //     //check time and high score
+        //     if(timeScore > HighScore) {
+        //         HighScore = timeScore;
+        //     }
+        //     GameStatus = true;
+        //     this.temp1 = false;
+        //     this.scene.start('gameOverScene');
+        // }
     }
 
     checkTraffic() {
@@ -237,6 +262,7 @@ class Play extends Phaser.Scene {
                 HighScore = timeScore;
             }
             GameStatus = true;
+            playerFrames = false;
             this.temp1 = false;
             this.scene.start('gameOverScene');
         }

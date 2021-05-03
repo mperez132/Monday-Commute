@@ -16,6 +16,24 @@ class Gameover extends Phaser.Scene {
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
+
+        let goText = {
+            fontFamily: 'Courier',
+            bold: true,
+            fontSize: '40px',
+            color: '#FFFFFF',
+            align: 'left',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 150
+        }
+
+        this.gameScore = this.add.text(game.config.width / 2 + 100, game.config.height / 2 - 60,
+            timeScore + 's', goText);
+        this.gameHS = this.add.text(game.config.width / 2 + 100, game.config.height / 2 + 15,
+            HighScore + 's', goText);
     }
 
     update() {
