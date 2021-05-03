@@ -6,8 +6,11 @@ class Play extends Phaser.Scene {
     }
 
     create() {
-
-
+        this.music1 = this.sound.add('main_loop');
+        this.music1.volume = 0.05;
+        this.music1.play();
+        this.music1.loop = true;
+        
         //road placed
         this.BackgroundRoad = this.add.tileSprite(0,0, game.config.width, game.config.height,
             'Background').setOrigin(0,0);
@@ -214,6 +217,7 @@ class Play extends Phaser.Scene {
         //     timeScore = 0;
         //     GameStatus = true;
         //     this.temp1 = false;
+        //     this.music.stop();
         //     this.scene.start('menuScene');
         // }
         // if(Phaser.Input.Keyboard.JustDown(keyUP)) {
@@ -228,6 +232,7 @@ class Play extends Phaser.Scene {
         //     }
         //     GameStatus = true;
         //     this.temp1 = false;
+        //     this.music.stop();
         //     this.scene.start('gameOverScene');
         // }
     }
@@ -332,6 +337,7 @@ class Play extends Phaser.Scene {
             playerFrames = false;
             this.temp1 = false;
             this.temp2 = false;
+            this.music1.stop();
             this.scene.start('gameOverScene');
         }
     }
