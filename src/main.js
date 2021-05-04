@@ -19,7 +19,7 @@
 // to implement into the game. To add more, we decided to give players 3 lives to play with. 
 
 
-//Implemented idea of Juan Alvarados group boat game invincibility frames for the player. 
+//Implemented idea of Juan Alvarados group - invincibility frames for the player. 
 
 
 
