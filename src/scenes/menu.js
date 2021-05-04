@@ -33,6 +33,7 @@ class Menu extends Phaser.Scene {
         //easy mode
         if(Phaser.Input.Keyboard.JustDown(keyUP)) {
             GameDiff = false;
+            this.music.stop();
             this.scene.start('playScene');
         }
         //hard mode
