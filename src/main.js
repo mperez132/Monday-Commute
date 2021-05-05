@@ -20,7 +20,7 @@
 
 
 //Implemented idea of Juan Alvarados group - invincibility frames for the player and lives. 
-
+//Logos and text was used from https://flamingtext.com/
 
 
 let config = {
